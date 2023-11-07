@@ -12,7 +12,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // checks if the Recurring type satisfies the MappedNullable interface at compile time
@@ -283,7 +283,7 @@ func (o *Recurring) isValidContract() bool {
 	return false
 }
 func (o *Recurring) isValidTokenService() bool {
-	var allowedEnumValues = []string{"VISATOKENSERVICE", "MCTOKENSERVICE"}
+	var allowedEnumValues = []string{"VISATOKENSERVICE", "MCTOKENSERVICE", "AMEXTOKENSERVICE", "TOKEN_SHARING"}
 	for _, allowed := range allowedEnumValues {
 		if o.GetTokenService() == allowed {
 			return true

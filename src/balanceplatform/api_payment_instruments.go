@@ -16,7 +16,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // PaymentInstrumentsApi service
@@ -68,8 +68,11 @@ func (a *PaymentInstrumentsApi) CreatePaymentInstrument(ctx context.Context, r P
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -78,7 +81,6 @@ func (a *PaymentInstrumentsApi) CreatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -87,7 +89,6 @@ func (a *PaymentInstrumentsApi) CreatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -96,7 +97,6 @@ func (a *PaymentInstrumentsApi) CreatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -105,7 +105,6 @@ func (a *PaymentInstrumentsApi) CreatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -160,8 +159,11 @@ func (a *PaymentInstrumentsApi) GetAllTransactionRulesForPaymentInstrument(ctx c
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -170,7 +172,6 @@ func (a *PaymentInstrumentsApi) GetAllTransactionRulesForPaymentInstrument(ctx c
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -179,7 +180,6 @@ func (a *PaymentInstrumentsApi) GetAllTransactionRulesForPaymentInstrument(ctx c
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -188,7 +188,6 @@ func (a *PaymentInstrumentsApi) GetAllTransactionRulesForPaymentInstrument(ctx c
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -197,7 +196,6 @@ func (a *PaymentInstrumentsApi) GetAllTransactionRulesForPaymentInstrument(ctx c
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -256,8 +254,11 @@ func (a *PaymentInstrumentsApi) GetPanOfPaymentInstrument(ctx context.Context, r
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -266,7 +267,6 @@ func (a *PaymentInstrumentsApi) GetPanOfPaymentInstrument(ctx context.Context, r
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -275,7 +275,6 @@ func (a *PaymentInstrumentsApi) GetPanOfPaymentInstrument(ctx context.Context, r
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -284,7 +283,6 @@ func (a *PaymentInstrumentsApi) GetPanOfPaymentInstrument(ctx context.Context, r
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -293,7 +291,6 @@ func (a *PaymentInstrumentsApi) GetPanOfPaymentInstrument(ctx context.Context, r
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -348,8 +345,11 @@ func (a *PaymentInstrumentsApi) GetPaymentInstrument(ctx context.Context, r Paym
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -358,7 +358,6 @@ func (a *PaymentInstrumentsApi) GetPaymentInstrument(ctx context.Context, r Paym
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -367,7 +366,6 @@ func (a *PaymentInstrumentsApi) GetPaymentInstrument(ctx context.Context, r Paym
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -376,7 +374,6 @@ func (a *PaymentInstrumentsApi) GetPaymentInstrument(ctx context.Context, r Paym
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -385,7 +382,6 @@ func (a *PaymentInstrumentsApi) GetPaymentInstrument(ctx context.Context, r Paym
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -440,8 +436,11 @@ func (a *PaymentInstrumentsApi) ListNetworkTokens(ctx context.Context, r Payment
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -450,7 +449,6 @@ func (a *PaymentInstrumentsApi) ListNetworkTokens(ctx context.Context, r Payment
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -459,7 +457,6 @@ func (a *PaymentInstrumentsApi) ListNetworkTokens(ctx context.Context, r Payment
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -468,7 +465,6 @@ func (a *PaymentInstrumentsApi) ListNetworkTokens(ctx context.Context, r Payment
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -477,7 +473,6 @@ func (a *PaymentInstrumentsApi) ListNetworkTokens(ctx context.Context, r Payment
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -538,8 +533,11 @@ func (a *PaymentInstrumentsApi) UpdatePaymentInstrument(ctx context.Context, r P
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -548,7 +546,6 @@ func (a *PaymentInstrumentsApi) UpdatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -557,7 +554,6 @@ func (a *PaymentInstrumentsApi) UpdatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -566,7 +562,6 @@ func (a *PaymentInstrumentsApi) UpdatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -575,7 +570,6 @@ func (a *PaymentInstrumentsApi) UpdatePaymentInstrument(ctx context.Context, r P
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)

@@ -11,7 +11,7 @@ package configurationwebhook
 import (
 	"encoding/json"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // checks if the BalanceAccount type satisfies the MappedNullable interface at compile time
@@ -23,7 +23,7 @@ type BalanceAccount struct {
 	AccountHolderId string `json:"accountHolderId"`
 	// List of balances with the amount and currency.
 	Balances []Balance `json:"balances,omitempty"`
-	// The default three-character [ISO currency code](https://docs.adyen.com/development-resources/currency-codes) of the balance account. The default value is **EUR**.
+	// The default three-character [ISO currency code](https://docs.adyen.com/development-resources/currency-codes) of the balance account. The default value is **EUR**. > After a balance account is created, you cannot change its default currency.
 	DefaultCurrencyCode *string `json:"defaultCurrencyCode,omitempty"`
 	// A human-readable description of the balance account, maximum 300 characters. You can use this parameter to distinguish between multiple balance accounts under an account holder.
 	Description *string `json:"description,omitempty"`

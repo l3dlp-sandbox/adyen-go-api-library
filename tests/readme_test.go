@@ -3,11 +3,11 @@ package tests
 import (
 	"context"
 	"fmt"
-	"github.com/adyen/adyen-go-api-library/v7/src/adyen"
-	"github.com/adyen/adyen-go-api-library/v7/src/checkout"
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
-	"github.com/adyen/adyen-go-api-library/v7/src/recurring"
-	"github.com/adyen/adyen-go-api-library/v7/src/webhook"
+	"github.com/adyen/adyen-go-api-library/v8/src/adyen"
+	"github.com/adyen/adyen-go-api-library/v8/src/checkout"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/recurring"
+	"github.com/adyen/adyen-go-api-library/v8/src/webhook"
 	"net/http"
 	"net/url"
 	"time"
@@ -45,7 +45,7 @@ func ExampleLiveEnv() {
 	res, httpRes, err := service.PaymentsApi.PaymentMethods(context.Background(), req)
 
 	fmt.Println(res.GetPaymentMethods(), httpRes, err.(*url.Error).URL)
-	// Output: [] <nil> https://1797a841fbb37ca7-AdyenDemo-checkout-live.adyenpayments.com/checkout/v70/paymentMethods
+	// Output: [] <nil> https://1797a841fbb37ca7-AdyenDemo-checkout-live.adyenpayments.com/checkout/v71/paymentMethods
 }
 
 func ExampleBasicAuth() {

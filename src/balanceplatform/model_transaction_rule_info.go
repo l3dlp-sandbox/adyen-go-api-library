@@ -11,7 +11,7 @@ package balanceplatform
 import (
 	"encoding/json"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // checks if the TransactionRuleInfo type satisfies the MappedNullable interface at compile time
@@ -31,7 +31,7 @@ type TransactionRuleInfo struct {
 	OutcomeType *string `json:"outcomeType,omitempty"`
 	// Your reference for the transaction rule, maximum 150 characters.
 	Reference string `json:"reference"`
-	// Indicates the type of request to which the rule applies.  Possible values: **authorization**, **authentication**, **tokenization**.
+	// Indicates the type of request to which the rule applies. If not provided, by default, this is set to **authorization**.  Possible values: **authorization**, **authentication**, **tokenization**, **bankTransfer**.
 	RequestType      *string                     `json:"requestType,omitempty"`
 	RuleRestrictions TransactionRuleRestrictions `json:"ruleRestrictions"`
 	// A positive or negative score applied to the transaction if it meets the conditions of the rule. Required when `outcomeType` is **scoreBased**.  The value must be between **-100** and **100**.

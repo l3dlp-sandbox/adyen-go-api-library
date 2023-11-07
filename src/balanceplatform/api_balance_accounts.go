@@ -16,7 +16,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // BalanceAccountsApi service
@@ -66,8 +66,11 @@ func (a *BalanceAccountsApi) CreateBalanceAccount(ctx context.Context, r Balance
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -76,7 +79,6 @@ func (a *BalanceAccountsApi) CreateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -85,7 +87,6 @@ func (a *BalanceAccountsApi) CreateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -94,7 +95,6 @@ func (a *BalanceAccountsApi) CreateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -103,7 +103,6 @@ func (a *BalanceAccountsApi) CreateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -118,12 +117,12 @@ func (a *BalanceAccountsApi) CreateBalanceAccount(ctx context.Context, r Balance
 
 // All parameters accepted by BalanceAccountsApi.CreateSweep
 type BalanceAccountsApiCreateSweepInput struct {
-	balanceAccountId     string
-	sweepConfigurationV2 *SweepConfigurationV2
+	balanceAccountId           string
+	createSweepConfigurationV2 *CreateSweepConfigurationV2
 }
 
-func (r BalanceAccountsApiCreateSweepInput) SweepConfigurationV2(sweepConfigurationV2 SweepConfigurationV2) BalanceAccountsApiCreateSweepInput {
-	r.sweepConfigurationV2 = &sweepConfigurationV2
+func (r BalanceAccountsApiCreateSweepInput) CreateSweepConfigurationV2(createSweepConfigurationV2 CreateSweepConfigurationV2) BalanceAccountsApiCreateSweepInput {
+	r.createSweepConfigurationV2 = &createSweepConfigurationV2
 	return r
 }
 
@@ -158,7 +157,7 @@ func (a *BalanceAccountsApi) CreateSweep(ctx context.Context, r BalanceAccountsA
 	httpRes, err := common.SendAPIRequest(
 		ctx,
 		a.Client,
-		r.sweepConfigurationV2,
+		r.createSweepConfigurationV2,
 		res,
 		http.MethodPost,
 		a.BasePath()+path,
@@ -166,8 +165,11 @@ func (a *BalanceAccountsApi) CreateSweep(ctx context.Context, r BalanceAccountsA
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -176,7 +178,6 @@ func (a *BalanceAccountsApi) CreateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -185,7 +186,6 @@ func (a *BalanceAccountsApi) CreateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -194,7 +194,6 @@ func (a *BalanceAccountsApi) CreateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -203,7 +202,6 @@ func (a *BalanceAccountsApi) CreateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -261,8 +259,11 @@ func (a *BalanceAccountsApi) DeleteSweep(ctx context.Context, r BalanceAccountsA
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -271,7 +272,6 @@ func (a *BalanceAccountsApi) DeleteSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -280,7 +280,6 @@ func (a *BalanceAccountsApi) DeleteSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -289,7 +288,6 @@ func (a *BalanceAccountsApi) DeleteSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -298,7 +296,6 @@ func (a *BalanceAccountsApi) DeleteSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -375,8 +372,11 @@ func (a *BalanceAccountsApi) GetAllPaymentInstrumentsForBalanceAccount(ctx conte
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -385,7 +385,6 @@ func (a *BalanceAccountsApi) GetAllPaymentInstrumentsForBalanceAccount(ctx conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -394,7 +393,6 @@ func (a *BalanceAccountsApi) GetAllPaymentInstrumentsForBalanceAccount(ctx conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -403,7 +401,6 @@ func (a *BalanceAccountsApi) GetAllPaymentInstrumentsForBalanceAccount(ctx conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -412,7 +409,6 @@ func (a *BalanceAccountsApi) GetAllPaymentInstrumentsForBalanceAccount(ctx conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -489,8 +485,11 @@ func (a *BalanceAccountsApi) GetAllSweepsForBalanceAccount(ctx context.Context, 
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -499,7 +498,6 @@ func (a *BalanceAccountsApi) GetAllSweepsForBalanceAccount(ctx context.Context, 
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -508,7 +506,6 @@ func (a *BalanceAccountsApi) GetAllSweepsForBalanceAccount(ctx context.Context, 
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -517,7 +514,6 @@ func (a *BalanceAccountsApi) GetAllSweepsForBalanceAccount(ctx context.Context, 
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -526,7 +522,6 @@ func (a *BalanceAccountsApi) GetAllSweepsForBalanceAccount(ctx context.Context, 
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -581,8 +576,11 @@ func (a *BalanceAccountsApi) GetBalanceAccount(ctx context.Context, r BalanceAcc
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -591,7 +589,6 @@ func (a *BalanceAccountsApi) GetBalanceAccount(ctx context.Context, r BalanceAcc
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -600,7 +597,6 @@ func (a *BalanceAccountsApi) GetBalanceAccount(ctx context.Context, r BalanceAcc
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -609,7 +605,6 @@ func (a *BalanceAccountsApi) GetBalanceAccount(ctx context.Context, r BalanceAcc
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -618,7 +613,6 @@ func (a *BalanceAccountsApi) GetBalanceAccount(ctx context.Context, r BalanceAcc
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -676,8 +670,11 @@ func (a *BalanceAccountsApi) GetSweep(ctx context.Context, r BalanceAccountsApiG
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -686,7 +683,6 @@ func (a *BalanceAccountsApi) GetSweep(ctx context.Context, r BalanceAccountsApiG
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -695,7 +691,6 @@ func (a *BalanceAccountsApi) GetSweep(ctx context.Context, r BalanceAccountsApiG
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -704,7 +699,6 @@ func (a *BalanceAccountsApi) GetSweep(ctx context.Context, r BalanceAccountsApiG
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -713,7 +707,6 @@ func (a *BalanceAccountsApi) GetSweep(ctx context.Context, r BalanceAccountsApiG
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -774,8 +767,11 @@ func (a *BalanceAccountsApi) UpdateBalanceAccount(ctx context.Context, r Balance
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -784,7 +780,6 @@ func (a *BalanceAccountsApi) UpdateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -793,7 +788,6 @@ func (a *BalanceAccountsApi) UpdateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -802,7 +796,6 @@ func (a *BalanceAccountsApi) UpdateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -811,7 +804,6 @@ func (a *BalanceAccountsApi) UpdateBalanceAccount(ctx context.Context, r Balance
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -875,8 +867,11 @@ func (a *BalanceAccountsApi) UpdateSweep(ctx context.Context, r BalanceAccountsA
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -885,7 +880,6 @@ func (a *BalanceAccountsApi) UpdateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -894,7 +888,6 @@ func (a *BalanceAccountsApi) UpdateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -903,7 +896,6 @@ func (a *BalanceAccountsApi) UpdateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -912,7 +904,6 @@ func (a *BalanceAccountsApi) UpdateSweep(ctx context.Context, r BalanceAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)

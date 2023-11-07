@@ -1,8 +1,5 @@
-/*
- * Adyen API Client
- *
- * Contact: support@adyen.com
- */
+//go:build integration
+// +build integration
 
 package tests
 
@@ -15,11 +12,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/adyen"
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
-	"github.com/adyen/adyen-go-api-library/v7/src/platformsaccount"
-	"github.com/adyen/adyen-go-api-library/v7/src/platformsfund"
-	"github.com/adyen/adyen-go-api-library/v7/src/platformsnotificationconfiguration"
+	"github.com/adyen/adyen-go-api-library/v8/src/adyen"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/platformsaccount"
+	"github.com/adyen/adyen-go-api-library/v8/src/platformsfund"
+	"github.com/adyen/adyen-go-api-library/v8/src/platformsnotificationconfiguration"
 	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"

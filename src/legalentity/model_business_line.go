@@ -11,7 +11,7 @@ package legalentity
 import (
 	"encoding/json"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // checks if the BusinessLine type satisfies the MappedNullable interface at compile time
@@ -28,7 +28,7 @@ type BusinessLine struct {
 	IndustryCode string `json:"industryCode"`
 	// Unique identifier of the [legal entity](https://docs.adyen.com/api-explorer/#/legalentity/latest/post/legalEntities__resParam_id) that owns the business line.
 	LegalEntityId string `json:"legalEntityId"`
-	// List of the verification errors from capabilities for this supporting entity.
+	// The verification errors related to capabilities for this supporting entity.
 	Problems []CapabilityProblem `json:"problems,omitempty"`
 	// A list of channels where goods or services are sold.  Possible values: **pos**, **posMoto**, **eCommerce**, **ecomMoto**, **payByLink**.  Required only in combination with the `service` **paymentProcessing**.
 	SalesChannels []string `json:"salesChannels,omitempty"`

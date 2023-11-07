@@ -8,27 +8,27 @@ package adyen
 
 import (
 	"fmt"
-	"github.com/adyen/adyen-go-api-library/v7/src/dataprotection"
+	"github.com/adyen/adyen-go-api-library/v8/src/dataprotection"
 	"net/http"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/balancecontrol"
-	"github.com/adyen/adyen-go-api-library/v7/src/balanceplatform"
-	"github.com/adyen/adyen-go-api-library/v7/src/binlookup"
-	"github.com/adyen/adyen-go-api-library/v7/src/checkout"
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
-	"github.com/adyen/adyen-go-api-library/v7/src/disputes"
-	"github.com/adyen/adyen-go-api-library/v7/src/legalentity"
-	"github.com/adyen/adyen-go-api-library/v7/src/management"
-	"github.com/adyen/adyen-go-api-library/v7/src/payments"
-	"github.com/adyen/adyen-go-api-library/v7/src/payout"
-	"github.com/adyen/adyen-go-api-library/v7/src/platformsaccount"
-	"github.com/adyen/adyen-go-api-library/v7/src/platformsfund"
-	"github.com/adyen/adyen-go-api-library/v7/src/platformshostedonboardingpage"
-	"github.com/adyen/adyen-go-api-library/v7/src/platformsnotificationconfiguration"
-	"github.com/adyen/adyen-go-api-library/v7/src/posterminalmanagement"
-	"github.com/adyen/adyen-go-api-library/v7/src/recurring"
-	"github.com/adyen/adyen-go-api-library/v7/src/storedvalue"
-	"github.com/adyen/adyen-go-api-library/v7/src/transfers"
+	"github.com/adyen/adyen-go-api-library/v8/src/balancecontrol"
+	"github.com/adyen/adyen-go-api-library/v8/src/balanceplatform"
+	"github.com/adyen/adyen-go-api-library/v8/src/binlookup"
+	"github.com/adyen/adyen-go-api-library/v8/src/checkout"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/disputes"
+	"github.com/adyen/adyen-go-api-library/v8/src/legalentity"
+	"github.com/adyen/adyen-go-api-library/v8/src/management"
+	"github.com/adyen/adyen-go-api-library/v8/src/payments"
+	"github.com/adyen/adyen-go-api-library/v8/src/payout"
+	"github.com/adyen/adyen-go-api-library/v8/src/platformsaccount"
+	"github.com/adyen/adyen-go-api-library/v8/src/platformsfund"
+	"github.com/adyen/adyen-go-api-library/v8/src/platformshostedonboardingpage"
+	"github.com/adyen/adyen-go-api-library/v8/src/platformsnotificationconfiguration"
+	"github.com/adyen/adyen-go-api-library/v8/src/posterminalmanagement"
+	"github.com/adyen/adyen-go-api-library/v8/src/recurring"
+	"github.com/adyen/adyen-go-api-library/v8/src/storedvalue"
+	"github.com/adyen/adyen-go-api-library/v8/src/transfers"
 )
 
 // Constants used for the client API
@@ -66,15 +66,15 @@ const (
 	MarketpayHopAPIVersion          = "v6"
 	PaymentAPIVersion               = "v68"
 	RecurringAPIVersion             = "v68"
-	CheckoutAPIVersion              = "v70"
+	CheckoutAPIVersion              = "v71"
 	BinLookupAPIVersion             = "v54"
 	BalanceControlAPIVersion        = "v1"
 	EndpointProtocol                = "https://"
 	DisputesAPIVersion              = "v30"
 	StoredValueAPIVersion           = "v46"
 	BalancePlatformAPIVersion       = "v2"
-	TransfersAPIVersion             = "v3"
-	ManagementAPIVersion            = "v1"
+	TransfersAPIVersion             = "v4"
+	ManagementAPIVersion            = "v3"
 	LegalEntityAPIVersion           = "v3"
 	PosTerminalManagementAPIVersion = "v1"
 	DataProtectionAPIVersion        = "v1"
@@ -100,7 +100,7 @@ type APIClient struct {
 	// Deprecated: Please migrate to the new Adyen For Platforms.
 	platformsNotificationConfiguration *platformsnotificationconfiguration.PlatformsNotificationConfiguration
 	posTerminalManagement              *posterminalmanagement.GeneralApi
-	disputes                           *disputes.Disputes
+	disputes                           *disputes.GeneralApi
 	storedValue                        *storedvalue.GeneralApi
 	balancePlatform                    *balanceplatform.APIClient
 	transfers                          *transfers.APIClient
@@ -201,7 +201,7 @@ func (c *APIClient) Checkout() *checkout.APIClient {
 func (c *APIClient) Payments() *payments.APIClient {
 	if c.payments == nil {
 		c.payments = payments.NewAPIClient(c.client)
-		c.payments.GeneralApi.BasePath = func() string {
+		c.payments.PaymentsApi.BasePath = func() string {
 			return fmt.Sprintf("%s/pal/servlet/Payment/%s", c.client.Cfg.Endpoint, PaymentAPIVersion)
 		}
 	}
@@ -309,9 +309,9 @@ func (c *APIClient) LegalEntity() *legalentity.APIClient {
 	return c.legalEntity
 }
 
-func (c *APIClient) Disputes() *disputes.Disputes {
+func (c *APIClient) Disputes() *disputes.GeneralApi {
 	if c.disputes == nil {
-		c.disputes = &disputes.Disputes{
+		c.disputes = &disputes.GeneralApi{
 			Client: c.client,
 			BasePath: func() string {
 				return fmt.Sprintf("%s/%s", c.client.Cfg.DisputesEndpoint, DisputesAPIVersion)
@@ -378,7 +378,7 @@ func (c *APIClient) DataProtection() *dataprotection.GeneralApi {
 		c.dataProtection = &dataprotection.GeneralApi{
 			Client: c.client,
 			BasePath: func() string {
-                return fmt.Sprintf("%s/%s", c.client.Cfg.DataProtectionEndpoint, DataProtectionAPIVersion)
+				return fmt.Sprintf("%s/%s", c.client.Cfg.DataProtectionEndpoint, DataProtectionAPIVersion)
 			},
 		}
 	}

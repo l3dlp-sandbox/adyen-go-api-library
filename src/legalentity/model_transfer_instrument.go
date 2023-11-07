@@ -11,7 +11,7 @@ package legalentity
 import (
 	"encoding/json"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // checks if the TransferInstrument type satisfies the MappedNullable interface at compile time
@@ -20,7 +20,7 @@ var _ common.MappedNullable = &TransferInstrument{}
 // TransferInstrument struct for TransferInstrument
 type TransferInstrument struct {
 	BankAccount BankAccountInfo `json:"bankAccount"`
-	// List of capabilities for this supporting entity.
+	// List of capabilities for this transfer instrument.
 	Capabilities *map[string]SupportingEntityCapability `json:"capabilities,omitempty"`
 	// List of documents uploaded for the transfer instrument.
 	DocumentDetails []DocumentReference `json:"documentDetails,omitempty"`
@@ -28,7 +28,7 @@ type TransferInstrument struct {
 	Id string `json:"id"`
 	// The unique identifier of the [legal entity](https://docs.adyen.com/api-explorer/legalentity/latest/post/legalEntities#responses-200-id) that owns the transfer instrument.
 	LegalEntityId string `json:"legalEntityId"`
-	// List of the verification errors from capabilities for this supporting entity.
+	// The verification errors related to capabilities for this transfer instrument.
 	Problems []CapabilityProblem `json:"problems,omitempty"`
 	// The type of transfer instrument.  Possible value: **bankAccount**.
 	Type string `json:"type"`

@@ -12,7 +12,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // checks if the TermsOfServiceAcceptanceInfo type satisfies the MappedNullable interface at compile time
@@ -28,7 +28,7 @@ type TermsOfServiceAcceptanceInfo struct {
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// An Adyen-generated reference for the accepted Terms of Service.
 	Id *string `json:"id,omitempty"`
-	// The type of Terms of Service.
+	// The type of Terms of Service.  Possible values: *  **adyenForPlatformsManage** *  **adyenIssuing** *  **adyenForPlatformsAdvanced** *  **adyenCapital** *  **adyenAccount** *  **adyenCard** *  **adyenFranchisee**
 	Type *string `json:"type,omitempty"`
 }
 

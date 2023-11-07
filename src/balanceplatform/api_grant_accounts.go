@@ -16,7 +16,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // GrantAccountsApi service
@@ -64,8 +64,11 @@ func (a *GrantAccountsApi) GetGrantAccount(ctx context.Context, r GrantAccountsA
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -74,7 +77,6 @@ func (a *GrantAccountsApi) GetGrantAccount(ctx context.Context, r GrantAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -83,7 +85,6 @@ func (a *GrantAccountsApi) GetGrantAccount(ctx context.Context, r GrantAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -92,7 +93,6 @@ func (a *GrantAccountsApi) GetGrantAccount(ctx context.Context, r GrantAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -101,7 +101,6 @@ func (a *GrantAccountsApi) GetGrantAccount(ctx context.Context, r GrantAccountsA
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)

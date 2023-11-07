@@ -2,9 +2,10 @@ package tests
 
 import (
 	"context"
-	"github.com/adyen/adyen-go-api-library/v7/src/adyen"
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
-	"github.com/adyen/adyen-go-api-library/v7/src/storedvalue"
+	"errors"
+	"github.com/adyen/adyen-go-api-library/v8/src/adyen"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/storedvalue"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"io"
@@ -89,7 +90,8 @@ func Test_StoredValue(t *testing.T) {
 		_, httpRes, err := client.StoredValue().VoidTransaction(context.Background(), req)
 
 		assert.Equal(t, 500, httpRes.StatusCode)
-		apiError := err.(common.APIError)
+		var apiError common.APIError
+		errors.As(err, &apiError)
 		assert.Equal(t, "306", apiError.Code)
 		assert.Equal(t, "No voidable transaction found", apiError.Message)
 	})

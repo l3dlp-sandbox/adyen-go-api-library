@@ -16,7 +16,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/adyen/adyen-go-api-library/v7/src/common"
+	"github.com/adyen/adyen-go-api-library/v8/src/common"
 )
 
 // PlatformApi service
@@ -86,8 +86,11 @@ func (a *PlatformApi) GetAllAccountHoldersUnderBalancePlatform(ctx context.Conte
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -96,7 +99,6 @@ func (a *PlatformApi) GetAllAccountHoldersUnderBalancePlatform(ctx context.Conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -105,7 +107,6 @@ func (a *PlatformApi) GetAllAccountHoldersUnderBalancePlatform(ctx context.Conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -114,7 +115,6 @@ func (a *PlatformApi) GetAllAccountHoldersUnderBalancePlatform(ctx context.Conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -123,7 +123,6 @@ func (a *PlatformApi) GetAllAccountHoldersUnderBalancePlatform(ctx context.Conte
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -178,8 +177,11 @@ func (a *PlatformApi) GetBalancePlatform(ctx context.Context, r PlatformApiGetBa
 		headerParams,
 	)
 
-	var serviceError common.RestServiceError
+	if httpRes == nil {
+		return *res, httpRes, err
+	}
 
+	var serviceError common.RestServiceError
 	if httpRes.StatusCode == 400 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -188,7 +190,6 @@ func (a *PlatformApi) GetBalancePlatform(ctx context.Context, r PlatformApiGetBa
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 401 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -197,7 +198,6 @@ func (a *PlatformApi) GetBalancePlatform(ctx context.Context, r PlatformApiGetBa
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 403 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -206,7 +206,6 @@ func (a *PlatformApi) GetBalancePlatform(ctx context.Context, r PlatformApiGetBa
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 422 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
@@ -215,7 +214,6 @@ func (a *PlatformApi) GetBalancePlatform(ctx context.Context, r PlatformApiGetBa
 		}
 		return *res, httpRes, serviceError
 	}
-
 	if httpRes.StatusCode == 500 {
 		body, _ := ioutil.ReadAll(httpRes.Body)
 		decodeError := json.Unmarshal([]byte(body), &serviceError)
